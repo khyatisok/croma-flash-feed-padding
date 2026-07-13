@@ -210,7 +210,7 @@ with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
 tree = etree.ElementTree(root)
 
 tree.write(
-    "flash_sale_feed.xml",
+    "flash_sale_feed_padding.xml",
     encoding="utf-8",
     xml_declaration=True,
     pretty_print=True
