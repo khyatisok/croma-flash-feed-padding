@@ -19,7 +19,7 @@ updated, stay happy! </description>
 <g:gtin>199251826924</g:gtin>
 <link>https://www.croma.com/hp-omnibook-5-14-he0015qu-qualcomm-snapdragon-x-thin-light-laptop-16gb-1tb-ssd-windows-11-home-14-inch-2k-oled-display-ms-office-home-2024-glacier-silver-1-35-kg-/p/323056</link>
 <g:price>153455.0 INR</g:price>
-<g:sale_price>78990.0 INR</g:sale_price>
+<g:sale_price>76990.0 INR</g:sale_price>
 <g:brand>HP</g:brand>
 <g:condition>new</g:condition>
 <g:image_link>https://khyatisok.github.io/croma-flash-feed-padding/images/323056.png</g:image_link>
@@ -33,36 +33,6 @@ updated, stay happy! </description>
 <g:shipping>
 <g:country>IN</g:country>
 <g:price>49.0 INR</g:price>
-</g:shipping>
-</item>
-<item>
-<g:id>322481</g:id>
-<title>Redmi 15 5G (8GB RAM, 256GB, Midnight Black)</title>
-<description>Buy Redmi 15 5G (8GB RAM, 256GB, Midnight Black) online at best prices from Croma. Check product details, reviews &amp; more. Shop now!</description>
-<g:google_product_category>Electronics &gt; Communications &gt; Telephony &gt; Mobile Phones</g:google_product_category>
-<g:product_type>Phones &amp; Wearables&gt;Mobile Phones&gt;Android Phones</g:product_type>
-<g:custom_label_0>Phones &amp; Wearables</g:custom_label_0>
-<g:custom_label_1>Mobile Phones</g:custom_label_1>
-<g:custom_label_2>Android Phones</g:custom_label_2>
-<g:custom_label_3/>
-<g:custom_label_4/>
-<g:gtin>8906129039575</g:gtin>
-<link>https://www.croma.com/redmi-15-5g-8gb-ram-256gb-midnight-black-/p/322481</link>
-<g:price>25499.0 INR</g:price>
-<g:sale_price>22999.0 INR</g:sale_price>
-<g:brand>Redmi</g:brand>
-<g:condition>new</g:condition>
-<g:image_link>https://khyatisok.github.io/croma-flash-feed-padding/images/322481.png</g:image_link>
-<g:additional_image_link>https://khyatisok.github.io/croma-flash-feed-padding/images/322481.png</g:additional_image_link>
-<g:availability>in_stock</g:availability>
-<g:color> Midnight Black </g:color>
-<g:product_applicability>SPECIFIC_PRODUCTS</g:product_applicability>
-<g:offer_type>NO_CODE</g:offer_type>
-<g:redemption_channel>ONLINE</g:redemption_channel>
-<g:promotion_destination>SHOPPING_ADS</g:promotion_destination>
-<g:shipping>
-<g:country>IN</g:country>
-<g:price>79.0 INR</g:price>
 </g:shipping>
 </item>
 <item>
@@ -143,6 +113,36 @@ updated, stay happy! </description>
 <g:additional_image_link>https://khyatisok.github.io/croma-flash-feed-padding/images/322685.png</g:additional_image_link>
 <g:availability>in_stock</g:availability>
 <g:color> Neo Black </g:color>
+<g:product_applicability>SPECIFIC_PRODUCTS</g:product_applicability>
+<g:offer_type>NO_CODE</g:offer_type>
+<g:redemption_channel>ONLINE</g:redemption_channel>
+<g:promotion_destination>SHOPPING_ADS</g:promotion_destination>
+<g:shipping>
+<g:country>IN</g:country>
+<g:price>79.0 INR</g:price>
+</g:shipping>
+</item>
+<item>
+<g:id>322481</g:id>
+<title>Redmi 15 5G (8GB RAM, 256GB, Midnight Black)</title>
+<description>Buy Redmi 15 5G (8GB RAM, 256GB, Midnight Black) online at best prices from Croma. Check product details, reviews &amp; more. Shop now!</description>
+<g:google_product_category>Electronics &gt; Communications &gt; Telephony &gt; Mobile Phones</g:google_product_category>
+<g:product_type>Phones &amp; Wearables&gt;Mobile Phones&gt;Android Phones</g:product_type>
+<g:custom_label_0>Phones &amp; Wearables</g:custom_label_0>
+<g:custom_label_1>Mobile Phones</g:custom_label_1>
+<g:custom_label_2>Android Phones</g:custom_label_2>
+<g:custom_label_3/>
+<g:custom_label_4/>
+<g:gtin>8906129039575</g:gtin>
+<link>https://www.croma.com/redmi-15-5g-8gb-ram-256gb-midnight-black-/p/322481</link>
+<g:price>25499.0 INR</g:price>
+<g:sale_price>22999.0 INR</g:sale_price>
+<g:brand>Redmi</g:brand>
+<g:condition>new</g:condition>
+<g:image_link>https://khyatisok.github.io/croma-flash-feed-padding/images/322481.png</g:image_link>
+<g:additional_image_link>https://khyatisok.github.io/croma-flash-feed-padding/images/322481.png</g:additional_image_link>
+<g:availability>out_of_stock</g:availability>
+<g:color> Midnight Black </g:color>
 <g:product_applicability>SPECIFIC_PRODUCTS</g:product_applicability>
 <g:offer_type>NO_CODE</g:offer_type>
 <g:redemption_channel>ONLINE</g:redemption_channel>
