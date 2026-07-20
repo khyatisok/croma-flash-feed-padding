@@ -19,7 +19,7 @@ IMAGE_FOLDER = "images"
 CACHE_FILE = "image_cache.json"
 
 # Your GitHub Pages URL
-IMAGE_BASE_URL = "https://khyatisok.github.io/croma-flash-feed-frame/images"
+IMAGE_BASE_URL = "https://khyatisok.github.io/croma-flash-gmc-frame/images"
 
 # Final output image size
 OUTPUT_SIZE = 1080
