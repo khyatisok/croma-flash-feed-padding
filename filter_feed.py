@@ -109,7 +109,7 @@ for item in list(items):
         custom_label_3 = item.find("g:custom_label_3", ns)
     
         if custom_label_3 is not None:
-            custom_label_3.text = "EDLP"
+            custom_label_3.text = "edlp"
     
         # internal_label after custom_label_4
         custom_label_4 = item.find("g:custom_label_4", ns)
@@ -118,7 +118,7 @@ for item in list(items):
             "{http://base.google.com/ns/1.0}internal_label"
         )
     
-        internal_label.text = "['EDLP']"
+        internal_label.text = "['edlp']"
     
         item.insert(
             list(item).index(custom_label_4) + 1,
