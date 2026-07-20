@@ -18,11 +18,17 @@ GMC_FEED = "https://www.croma.com/gmcfeed.xml"
 IMAGE_FOLDER = "images"
 CACHE_FILE = "image_cache.json"
 
-# Change this to your GitHub Pages URL
-IMAGE_BASE_URL = "https://khyatisok.github.io/croma-flash-feed-padding/images"
+# Your GitHub Pages URL
+IMAGE_BASE_URL = "https://khyatisok.github.io/croma-flash-feed-frame/images"
 
-# Resize product to 75% of original size
+# Final output image size
+OUTPUT_SIZE = 1080
+
+# Resize product to 75% of canvas
 SCALE = 0.75
+
+# Frame image
+FRAME_PATH = "frame.png"
 
 MAX_WORKERS = 6
 
@@ -31,6 +37,10 @@ MAX_WORKERS = 6
 os.makedirs(IMAGE_FOLDER, exist_ok=True)
 
 session = requests.Session()
+
+# Load frame only once
+frame = Image.open(FRAME_PATH).convert("RGBA")
+frame = frame.resize((OUTPUT_SIZE, OUTPUT_SIZE), Image.LANCZOS)
 
 print("Downloading campaign page...")
 
@@ -67,8 +77,6 @@ new_cache = {}
 
 tasks = []
 
-removed = 0
-
 # -----------------------------------------------------
 # Filter products
 # -----------------------------------------------------
@@ -82,64 +90,68 @@ for item in list(items):
 
     sku = sku_node.text.strip()
 
-    if sku not in skus:
-        channel.remove(item)
-        removed += 1
-        continue
-
     image_node = item.find("g:image_link", ns)
 
     if image_node is None:
         continue
 
     image_url = image_node.text.strip()
-
+    
     new_cache[sku] = image_url
-
-    new_url = f"{IMAGE_BASE_URL}/{sku}.png"
-
-    image_node.text = new_url
-
-    additional = item.find("g:additional_image_link", ns)
-
-    if additional is not None:
-        additional.text = new_url
-
-    # only regenerate if image changed or doesn't exist
-
-    image_path = os.path.join(IMAGE_FOLDER, f"{sku}.png")
-
-    if (
-        sku not in cache
-        or cache[sku] != image_url
-        or not os.path.exists(image_path)
-    ):
-        tasks.append((sku, image_url))
-
-print(f"Removed {removed} products")
+    
+    # -------------------------------------------------
+    # Only modify EDLP products
+    # -------------------------------------------------
+    
+    if sku in skus:
+    
+        # custom_label_3
+        custom_label_3 = item.find("g:custom_label_3", ns)
+    
+        if custom_label_3 is not None:
+            custom_label_3.text = "EDLP"
+    
+        # internal_label after custom_label_4
+        custom_label_4 = item.find("g:custom_label_4", ns)
+    
+        internal_label = etree.Element(
+            "{http://base.google.com/ns/1.0}internal_label"
+        )
+    
+        internal_label.text = "['EDLP']"
+    
+        item.insert(
+            list(item).index(custom_label_4) + 1,
+            internal_label
+        )
+    
+        # Replace image URLs
+        new_url = f"{IMAGE_BASE_URL}/{sku}.png"
+    
+        image_node.text = new_url
+    
+        additional = item.find("g:additional_image_link", ns)
+    
+        if additional is not None:
+            additional.text = new_url
+    
+        # Regenerate framed image only if needed
+        image_path = os.path.join(
+            IMAGE_FOLDER,
+            f"{sku}.png"
+        )
+    
+        if (
+            sku not in cache
+            or cache[sku] != image_url
+            or not os.path.exists(image_path)
+        ):
+            tasks.append((sku, image_url))
 
 print(f"Images needing regeneration: {len(tasks)}")
 
 # -----------------------------------------------------
-# Delete old images
-# -----------------------------------------------------
-
-existing = {
-    filename[:-4]
-    for filename in os.listdir(IMAGE_FOLDER)
-    if filename.endswith(".png")
-}
-
-for old in existing - skus:
-
-    try:
-        os.remove(os.path.join(IMAGE_FOLDER, old + ".png"))
-        print(f"Deleted {old}.png")
-    except:
-        pass
-
-# -----------------------------------------------------
-# Image processor
+# Image Processor
 # -----------------------------------------------------
 
 def process_image(task):
@@ -156,30 +168,42 @@ def process_image(task):
 
         img = Image.open(BytesIO(response.content)).convert("RGBA")
 
+        # Original dimensions
         w, h = img.size
 
-        new_w = int(w * SCALE)
-        new_h = int(h * SCALE)
+        # Resize while maintaining aspect ratio
+        target_w = int(OUTPUT_SIZE * SCALE)
+        target_h = int((h / w) * target_w)
+
+        # Prevent image from exceeding safe area
+        if target_h > OUTPUT_SIZE * SCALE:
+            target_h = int(OUTPUT_SIZE * SCALE)
+            target_w = int((w / h) * target_h)
 
         resized = img.resize(
-            (new_w, new_h),
+            (target_w, target_h),
             Image.LANCZOS
         )
 
+        # Create white background
         canvas = Image.new(
             "RGBA",
-            (w, h),
+            (OUTPUT_SIZE, OUTPUT_SIZE),
             (255, 255, 255, 255)
         )
 
-        x = (w - new_w) // 2
-        y = (h - new_h) // 2
+        # Center product
+        x = (OUTPUT_SIZE - target_w) // 2
+        y = (OUTPUT_SIZE - target_h) // 2
 
         canvas.paste(
             resized,
             (x, y),
             resized
         )
+
+        # Overlay frame
+        canvas.alpha_composite(frame)
 
         output = os.path.join(
             IMAGE_FOLDER,
@@ -201,7 +225,7 @@ def process_image(task):
 # -----------------------------------------------------
 
 with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-    executor.map(process_image, tasks)
+    list(executor.map(process_image, tasks))
 
 # -----------------------------------------------------
 # Save XML
